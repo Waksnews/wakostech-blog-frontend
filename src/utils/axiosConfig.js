@@ -1,12 +1,10 @@
 import axios from 'axios';
 
-// Create axios instance with base URL
-const axiosInstance = axios.create({
-  baseURL: 'http://localhost:5000/api/v1',
-});
+// ✅ Set base URL globally (works both locally and in production)
+axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api/v1';
 
-// Request interceptor to attach token
-axiosInstance.interceptors.request.use(
+// ✅ Request interceptor to attach token
+axios.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -19,8 +17,8 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-// Response interceptor to handle auth errors
-axiosInstance.interceptors.response.use(
+// ✅ Response interceptor to handle auth errors
+axios.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
@@ -32,4 +30,5 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-export default axiosInstance;
+// ✅ Export same instance (so your imports still work)
+export default axios;
