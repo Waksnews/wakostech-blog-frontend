@@ -13,7 +13,7 @@ import { Toaster } from "react-hot-toast";
 import { ThemeProvider } from "./context/ThemeContext";
 import "./App.css";
 
-// ADD THIS LINE - Import axios configuration
+// Import axios configuration
 import "./utils/axiosConfig";
 
 function App() {
