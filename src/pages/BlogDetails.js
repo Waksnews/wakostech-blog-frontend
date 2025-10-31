@@ -91,6 +91,14 @@ const BlogDetails = () => {
     return token ? { Authorization: `Bearer ${token}` } : {};
   };
 
+  // ✅ ADDED IMAGE URL HELPER FUNCTION
+  const getFullImageUrl = (imagePath) => {
+    if (!imagePath) return '';
+    if (imagePath.startsWith('http')) return imagePath;
+    if (imagePath.startsWith('data:image')) return imagePath;
+    return `https://wakostechblog-backend.onrender.com${imagePath}`;
+  };
+
   // ✅ ADDED BACK BUTTON FUNCTIONALITY
   const handleBack = () => {
     // Go back to previous page, or to blogs page if no history
@@ -616,7 +624,7 @@ const BlogDetails = () => {
                 {blog.image && (
                   <Box sx={{ mb: 3 }}>
                     <img
-                      src={blog.image}
+                      src={getFullImageUrl(blog.image)} {/* ✅ FIXED IMAGE URL */}
                       alt={blog.title}
                       style={{
                         width: "100%",
@@ -1013,7 +1021,7 @@ const BlogDetails = () => {
                     </Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                       <img 
-                        src={imagePreview} 
+                        src={getFullImageUrl(imagePreview)} {/* ✅ FIXED IMAGE PREVIEW URL */}
                         alt="Preview" 
                         style={{ 
                           width: 80, 
