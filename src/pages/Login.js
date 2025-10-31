@@ -28,7 +28,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axiosInstance.post("/user/login", {
+      const { data } = await axiosInstance.post("/api/v1/user/login", { // ✅ FIXED PATH
         email: inputs.email,
         password: inputs.password,
       });
