@@ -624,7 +624,7 @@ const BlogDetails = () => {
                 {blog.image && (
                   <Box sx={{ mb: 3 }}>
                     <img
-                      src={getFullImageUrl(blog.image)} {/* ✅ FIXED IMAGE URL */}
+                      src={getFullImageUrl(blog.image)} /* ✅ FIXED IMAGE URL */
                       alt={blog.title}
                       style={{
                         width: "100%",
@@ -1021,7 +1021,7 @@ const BlogDetails = () => {
                     </Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                       <img 
-                        src={getFullImageUrl(imagePreview)} {/* ✅ FIXED IMAGE PREVIEW URL */}
+                        src={getFullImageUrl(imagePreview)} /* ✅ FIXED IMAGE PREVIEW URL */
                         alt="Preview" 
                         style={{ 
                           width: 80, 
