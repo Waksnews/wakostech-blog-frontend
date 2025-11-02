@@ -21,7 +21,6 @@ import {
   DialogContent,
   DialogActions,
   MenuItem,
-  InputLabel,
 } from "@mui/material";
 import {
   AccessTime,
@@ -35,7 +34,7 @@ import {
   Title,
   Description,
   PhotoCamera,
-  ArrowBack, // ✅ ADDED BACK ICON
+  ArrowBack,
 } from "@mui/icons-material";
 import { toast } from "react-hot-toast";
 import Comment from "../components/Comment";
@@ -161,43 +160,8 @@ const BlogDetails = () => {
     getComments();
   }, [getBlogDetail, getComments]);
 
-  // React Quill configuration
-  const modules = React.useMemo(() => ({
-    toolbar: {
-      container: [
-        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-        [{ 'font': [] }],
-        [{ 'size': ['small', false, 'large', 'huge'] }],
-        ['bold', 'italic', 'underline', 'strike'],
-        [{ 'color': [] }, { 'background': [] }],
-        [{ 'script': 'sub'}, { 'script': 'super' }],
-        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-        [{ 'indent': '-1'}, { 'indent': '+1' }],
-        [{ 'align': [] }],
-        ['blockquote', 'code-block'],
-        ['link', 'image', 'video'],
-        ['clean']
-      ],
-      handlers: {
-        image: handleImageUpload
-      }
-    },
-    clipboard: {
-      matchVisual: false,
-    }
-  }), []);
-
-  const formats = [
-    'header', 'font', 'size',
-    'bold', 'italic', 'underline', 'strike',
-    'color', 'background', 'script',
-    'list', 'bullet', 'indent', 'align',
-    'blockquote', 'code-block',
-    'link', 'image', 'video'
-  ];
-
   // Custom image upload handler for ReactQuill
-  async function handleImageUpload() {
+  const handleImageUpload = useCallback(async () => {
     const input = document.createElement('input');
     input.setAttribute('type', 'file');
     input.setAttribute('accept', 'image/*');
@@ -240,7 +204,42 @@ const BlogDetails = () => {
         }
       }
     };
-  }
+  }, [getAuthHeaders]);
+
+  // React Quill configuration
+  const modules = React.useMemo(() => ({
+    toolbar: {
+      container: [
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+        [{ 'font': [] }],
+        [{ 'size': ['small', false, 'large', 'huge'] }],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ 'color': [] }, { 'background': [] }],
+        [{ 'script': 'sub'}, { 'script': 'super' }],
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'indent': '-1'}, { 'indent': '+1' }],
+        [{ 'align': [] }],
+        ['blockquote', 'code-block'],
+        ['link', 'image', 'video'],
+        ['clean']
+      ],
+      handlers: {
+        image: handleImageUpload
+      }
+    },
+    clipboard: {
+      matchVisual: false,
+    }
+  }), [handleImageUpload]); // ✅ FIXED: Added handleImageUpload dependency
+
+  const formats = [
+    'header', 'font', 'size',
+    'bold', 'italic', 'underline', 'strike',
+    'color', 'background', 'script',
+    'list', 'bullet', 'indent', 'align',
+    'blockquote', 'code-block',
+    'link', 'image', 'video'
+  ];
 
   // Quill styles
   const quillStyles = {
@@ -851,9 +850,9 @@ const BlogDetails = () => {
         
         <form onSubmit={handleEditSubmit}>
           <DialogContent sx={{ p: 3 }}>
-            /* Title Input */
+            {/* Title Input */}
             <Box sx={{ mb: 3 }}>
-              <InputLabel sx={{ 
+              <Box sx={{ 
                 display: 'flex', 
                 alignItems: 'center', 
                 mb: 1,
@@ -862,7 +861,7 @@ const BlogDetails = () => {
               }}>
                 <Title sx={{ color: 'primary.main', mr: 1 }} />
                 Blog Title
-              </InputLabel>
+              </Box>
               <TextField
                 fullWidth
                 name="title"
@@ -887,7 +886,7 @@ const BlogDetails = () => {
 
             {/* Rich Text Editor */}
             <Box sx={{ mb: 3 }}>
-              <InputLabel sx={{ 
+              <Box sx={{ 
                 display: 'flex', 
                 alignItems: 'center', 
                 mb: 1,
@@ -901,7 +900,7 @@ const BlogDetails = () => {
                     📤 Uploading image...
                   </Typography>
                 )}
-              </InputLabel>
+              </Box>
               
               <Box sx={quillStyles}>
                 <ReactQuill
@@ -931,9 +930,9 @@ const BlogDetails = () => {
 
             {/* Category Selection */}
             <Box sx={{ mb: 3 }}>
-              <InputLabel sx={{ fontWeight: 'bold', mb: 1, color: 'text.primary' }}>
+              <Box sx={{ fontWeight: 'bold', mb: 1, color: 'text.primary' }}>
                 Category
-              </InputLabel>
+              </Box>
               <TextField
                 fullWidth
                 select
@@ -958,7 +957,7 @@ const BlogDetails = () => {
 
             {/* Image Upload Section */}
             <Box>
-              <InputLabel sx={{ 
+              <Box sx={{ 
                 display: 'flex', 
                 alignItems: 'center', 
                 mb: 1,
@@ -967,7 +966,7 @@ const BlogDetails = () => {
               }}>
                 <PhotoCamera sx={{ color: 'secondary.main', mr: 1 }} />
                 Featured Image
-              </InputLabel>
+              </Box>
               
               <Box sx={{ spaceY: 2 }}>
                 <Box 

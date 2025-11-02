@@ -6,22 +6,19 @@ import {
   Toolbar,
   Button,
   Typography,
-  InputBase,
   IconButton,
   Avatar,
   Menu,
   MenuItem,
   Divider,
-  Chip,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../redux/store";
 import toast from "react-hot-toast";
-import SearchIcon from "@mui/icons-material/Search";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
-import { Person, Settings, ExitToApp, Dashboard, Menu as MenuIcon } from "@mui/icons-material";
+import { Person, ExitToApp, Dashboard, Menu as MenuIcon } from "@mui/icons-material";
 import { useTheme } from "../context/ThemeContext";
 
 const Header = () => {
@@ -363,79 +360,14 @@ const Header = () => {
               SINGLE POST
             </Button>
             
-            <Button
-              sx={{ 
-                color: '#2c3e50',
-                textTransform: 'uppercase',
-                fontSize: '0.85rem',
-                fontWeight: '700',
-                padding: '2px 8px',
-                minWidth: 'auto',
-                borderRadius: 0,
-                '&:hover': {
-                  backgroundColor: 'transparent',
-                  color: '#e74c3c'
-                }
-              }}
-            >
-              
-            </Button>
-            
-            <Button
-              sx={{ 
-                color: '#2c3e50',
-                textTransform: 'uppercase',
-                fontSize: '0.85rem',
-                fontWeight: '700',
-                padding: '2px 8px',
-                minWidth: 'auto',
-                borderRadius: 0,
-                '&:hover': {
-                  backgroundColor: 'transparent',
-                  color: '#e74c3c'
-                }
-              }}
-            >
-              
-            </Button>
-            
-            <Button
-              sx={{ 
-                color: '#2c3e50',
-                textTransform: 'uppercase',
-                fontSize: '0.85rem',
-                fontWeight: '700',
-                padding: '2px 8px',
-                minWidth: 'auto',
-                borderRadius: 0,
-                '&:hover': {
-                  backgroundColor: 'transparent',
-                  color: '#e74c3c'
-                }
-              }}
-            >
-              
-            </Button>
+            {/* Empty buttons for layout - keeping for design consistency */}
+            <Button sx={{ color: '#2c3e50', textTransform: 'uppercase', fontSize: '0.85rem', minWidth: 'auto' }} />
+            <Button sx={{ color: '#2c3e50', textTransform: 'uppercase', fontSize: '0.85rem', minWidth: 'auto' }} />
+            <Button sx={{ color: '#2c3e50', textTransform: 'uppercase', fontSize: '0.85rem', minWidth: 'auto' }} />
 
             {/* Right Side Navigation */}
             <Box sx={{ display: 'flex', gap: 3, ml: 'auto' }}>
-              <Button
-                sx={{ 
-                  color: '#2c3e50',
-                  textTransform: 'uppercase',
-                  fontSize: '0.85rem',
-                  fontWeight: '700',
-                  padding: '2px 8px',
-                  minWidth: 'auto',
-                  borderRadius: 0,
-                  '&:hover': {
-                    backgroundColor: 'transparent',
-                    color: '#e74c3c'
-                  }
-                }}
-              >
-                
-              </Button>
+              <Button sx={{ color: '#2c3e50', textTransform: 'uppercase', fontSize: '0.85rem', minWidth: 'auto' }} />
               <Button
                 component={Link}
                 to="/register"

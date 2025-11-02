@@ -1,7 +1,7 @@
-import React, { useState, useMemo, useRef } from "react";
+import React, { useState, useMemo, useRef, useCallback } from "react";
 import axios from "../utils/axiosConfig";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, InputLabel, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import toast from "react-hot-toast";
 import { 
   PhotoCamera, 
@@ -28,7 +28,7 @@ const CreateBlog = () => {
   const [uploadingImage, setUploadingImage] = useState(false);
 
   // Custom image upload handler for ReactQuill
-  const handleImageUpload = () => {
+  const handleImageUpload = useCallback(() => {
     const input = document.createElement('input');
     input.setAttribute('type', 'file');
     input.setAttribute('accept', 'image/*');
@@ -75,7 +75,7 @@ const CreateBlog = () => {
         }
       }
     };
-  };
+  }, []);
 
   // React Quill configuration with custom image handler
   const modules = useMemo(() => ({
@@ -101,7 +101,7 @@ const CreateBlog = () => {
     clipboard: {
       matchVisual: false,
     }
-  }), []);
+  }), [handleImageUpload]); // ✅ FIXED: Added handleImageUpload dependency
 
   const formats = [
     'header', 'font', 'size',
