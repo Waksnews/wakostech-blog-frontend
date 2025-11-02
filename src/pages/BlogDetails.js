@@ -851,7 +851,7 @@ const BlogDetails = () => {
         
         <form onSubmit={handleEditSubmit}>
           <DialogContent sx={{ p: 3 }}>
-            {/* Title Input */}
+            /* Title Input */
             <Box sx={{ mb: 3 }}>
               <InputLabel sx={{ 
                 display: 'flex', 
