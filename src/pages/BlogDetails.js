@@ -72,31 +72,26 @@ const BlogDetails = () => {
   });
   const [imagePreview, setImagePreview] = useState(null);
 
-  // Get authentication token
-  const getAuthToken = () => {
-    return localStorage.getItem("token");
-  };
+  // ✅ FIXED: Get authentication headers with useCallback
+  const getAuthHeaders = useCallback(() => {
+    const token = localStorage.getItem("token");
+    return token ? { Authorization: `Bearer ${token}` } : {};
+  }, []);
 
-  // Check if user is authenticated
-  const isAuthenticated = () => {
-    const token = getAuthToken();
+  // ✅ FIXED: Check if user is authenticated with useCallback
+  const isAuthenticated = useCallback(() => {
+    const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
     return !!(token && userId);
-  };
+  }, []);
 
-  // Get authentication headers
-  const getAuthHeaders = () => {
-    const token = getAuthToken();
-    return token ? { Authorization: `Bearer ${token}` } : {};
-  };
-
-  // ✅ ADDED IMAGE URL HELPER FUNCTION
-  const getFullImageUrl = (imagePath) => {
+  // ✅ FIXED: Image URL helper function with useCallback
+  const getFullImageUrl = useCallback((imagePath) => {
     if (!imagePath) return '';
     if (imagePath.startsWith('http')) return imagePath;
     if (imagePath.startsWith('data:image')) return imagePath;
     return `https://wakostechblog-backend.onrender.com${imagePath}`;
-  };
+  }, []);
 
   // ✅ ADDED BACK BUTTON FUNCTIONALITY
   const handleBack = () => {
@@ -230,7 +225,7 @@ const BlogDetails = () => {
     clipboard: {
       matchVisual: false,
     }
-  }), [handleImageUpload]); // ✅ FIXED: Added handleImageUpload dependency
+  }), [handleImageUpload]);
 
   const formats = [
     'header', 'font', 'size',
@@ -623,7 +618,7 @@ const BlogDetails = () => {
                 {blog.image && (
                   <Box sx={{ mb: 3 }}>
                     <img
-                      src={getFullImageUrl(blog.image)} /* ✅ FIXED IMAGE URL */
+                      src={getFullImageUrl(blog.image)}
                       alt={blog.title}
                       style={{
                         width: "100%",
@@ -1020,7 +1015,7 @@ const BlogDetails = () => {
                     </Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                       <img 
-                        src={getFullImageUrl(imagePreview)} /* ✅ FIXED IMAGE PREVIEW URL */
+                        src={getFullImageUrl(imagePreview)}
                         alt="Preview" 
                         style={{ 
                           width: 80, 

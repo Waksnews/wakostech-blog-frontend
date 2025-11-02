@@ -28,7 +28,7 @@ const Header = () => {
   const navigate = useNavigate();
   const { isDark, toggleTheme } = useTheme();
   
-  const [searchQuery, setSearchQuery] = useState("");
+  // ✅ FIXED: Removed unused setSearchQuery
   const [userMenuAnchor, setUserMenuAnchor] = useState(null);
   const [mobileMenuAnchor, setMobileMenuAnchor] = useState(null);
   const [userData, setUserData] = useState({
@@ -69,11 +69,7 @@ const Header = () => {
     }
   };
 
-  const handleSearch = (e) => {
-    if (e.key === "Enter" && searchQuery.trim()) {
-      navigate(`/blogs?search=${encodeURIComponent(searchQuery)}`);
-    }
-  };
+  // ✅ FIXED: Removed unused handleSearch function
 
   const handleUserMenuOpen = (event) => {
     setUserMenuAnchor(event.currentTarget);
